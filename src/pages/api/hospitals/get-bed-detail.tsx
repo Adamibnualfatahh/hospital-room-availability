@@ -6,10 +6,21 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   try {
-    const { hospital, type } = req.query
-    const response = await axios.get(`https://rs-bed-covid-api.vercel.app/api/get-bed-detail?hospitalid=${hospital}&type=${type}`)
-    const data = response.data
-    res.status(200).json(data)
+    const { id, type } = req.query
+    const bedDetailResponse = await axios.get(
+      `${process.env.RS_ENDPOINT}/api/get-bed-detail?hospitalid=${id}&type=${type}`,
+    )
+    const bedDetailData = bedDetailResponse.data
+    const mapResponse = await axios.get(
+      `${process.env.RS_ENDPOINT}/api/get-hospital-map?hospitalid=${id}`,
+    )
+
+    const mapData = mapResponse.data
+
+    bedDetailData.data.lat = mapData.data.lat || null
+    bedDetailData.data.long = mapData.data.long || null
+
+    res.status(200).json(bedDetailData)
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' })
   }

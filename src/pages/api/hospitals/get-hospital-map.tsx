@@ -7,7 +7,9 @@ export default async function handler(
 ) {
   try {
     const { hospital, type } = req.query
-    const response = await axios.get(`https://rs-bed-covid-api.vercel.app/api/get-bed-detail?hospitalid=${hospital}&type=${type}`)
+    const response = await axios.get(
+      `${process.env.RS_ENDPOINT}/api/get-bed-detail?hospitalid=${hospital}&type=${type}`,
+    )
     const data = response.data
     res.status(200).json(data)
   } catch (error) {
