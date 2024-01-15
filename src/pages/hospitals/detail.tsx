@@ -74,9 +74,9 @@ export default function Detail() {
   if (!details) return <div>No detail found</div>
   return (
     <Layout>
-      <main className='flex min-h-screen flex-col items-center justify-between p-10 bg-white'>
+      <main className='flex min-h-screen flex-col items-center justify-between p-4 sm:p-10 bg-white'>
         <div className='w-full max-w-3xl'>
-          <div className='flex flex-col p-8 border-2 border-black shadow-md hover:shadow-lg relative'>
+          <div className='flex flex-col p-4 sm:p-8 border-2 border-black shadow-md hover:shadow-lg relative'>
             <div className='absolute inset-x-0 bottom-0 h-1 bg-black'></div>
             <div className='flex items-center justify-between relative z-10'>
               <div className='flex items-center'>
@@ -101,6 +101,7 @@ export default function Detail() {
               </div>
             </div>
           </div>
+
           <div className='mt-4 border-2 border-black' key={details.data.id}>
             <div className='w-full bg-gray-900 p-4 text-white'>
               <h1 className='text-2xl font-bold'>{details.data.name}</h1>
@@ -154,6 +155,7 @@ export default function Detail() {
                 </>
               </div>
             </div>
+
             <div className='w-full text-black border-b-2 border-black px-4 pb-2'>
               {details.data?.bedDetail.map((bed: any) => (
                 <>
